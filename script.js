@@ -24,8 +24,8 @@ window.onload = function () {
   context = board.getContext("2d");
 
   placeFood();
-  //   update();
-  setInterval(update(), 1000 / 10);
+  document.addEventListener("keyup", changeDirection);
+  setInterval(update, 1000 / 10);
 };
 
 function update() {
