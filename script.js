@@ -111,10 +111,9 @@ function placeFood() {
   }
 
   let randomPos = Math.floor(Math.random() * spawnable.length);
-  alert(randomPos);
 
+  foodX = spawnable[randomPos][0] * blockSize;
+  foodY = spawnable[randomPos][1] * blockSize;
   // foodX = Math.floor(Math.random() * cols) * blockSize;
   // foodY = Math.floor(Math.random() * rows) * blockSize;
-  foodX = spawnable[randomPos][0];
-  foodY = spawnable[randomPos][1];
 }
