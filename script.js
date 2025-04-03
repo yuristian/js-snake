@@ -7,8 +7,8 @@ var context;
 var snakeX = blockSize * 5;
 var snakeY = blockSize * 5;
 
-var foodX = blockSize * 10;
-var foodY = blockSize * 10;
+var foodX;
+var foodY;
 
 var snakeBody = [];
 
@@ -44,7 +44,7 @@ function update() {
     placeFood();
   }
 
-  for (let i = snakeBody.length - 1; i > 0; i++) {
+  for (let i = snakeBody.length - 1; i > 0; i--) {
     snakeBody[i] = snakeBody[i - 1];
   }
 
@@ -60,11 +60,12 @@ function update() {
     context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
   }
 
+  //if out of bounds
   if (
     snakeX < 0 ||
-    snakeX > cols * blockSize ||
     snakeY < 0 ||
-    snakeY > rows.blockSize
+    snakeX >= cols * blockSize ||
+    snakeY >= rows * blockSize
   ) {
     gameOver = true;
     alert("Game Over");
@@ -95,6 +96,25 @@ function changeDirection(e) {
 }
 
 function placeFood() {
-  foodX = Math.floor(Math.random() * cols) * blockSize;
-  foodY = Math.floor(Math.random() * rows) * blockSize;
+  let spawnable = [];
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      spawnable.push([i, j]);
+    }
+  }
+
+  for (let i = 0; i < snakeBody.length; i++) {
+    let index = spawnable.indexOf([snakeBody[i][0], snakeBody[i][1]]);
+    if (index != -1) {
+      spawnable.slice(index, index);
+    }
+  }
+
+  let randomPos = Math.floor(Math.random() * spawnable.length);
+  alert(randomPos);
+
+  // foodX = Math.floor(Math.random() * cols) * blockSize;
+  // foodY = Math.floor(Math.random() * rows) * blockSize;
+  foodX = spawnable[randomPos][0];
+  foodY = spawnable[randomPos][1];
 }
