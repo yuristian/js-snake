@@ -56,7 +56,7 @@ function update() {
   snakeX += veloX * blockSize;
   snakeY += veloY * blockSize;
   context.fillRect(snakeX, snakeY, blockSize, blockSize);
-  for (let i = 0; snakeBody.length; i++) {
+  for (let i = 0; i < snakeBody.length; i++) {
     context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
   }
 
@@ -64,8 +64,8 @@ function update() {
   if (
     snakeX < 0 ||
     snakeY < 0 ||
-    snakeX >= cols * blockSize ||
-    snakeY >= rows * blockSize
+    snakeX > cols * blockSize ||
+    snakeY > rows * blockSize
   ) {
     gameOver = true;
     alert("Game Over");
@@ -77,6 +77,13 @@ function update() {
       alert("Game Over");
     }
   }
+
+  info_head = document.getElementById("info-head");
+  info_head.innerHTML = "Snake Head [" + snakeX + ", " + snakeY + "]";
+  info_length = document.getElementById("info-length");
+  info_length.innerHTML = "Snake Length : " + snakeBody.length;
+  info_food = document.getElementById("info-food");
+  info_food.innerHTML = "Food : [" + foodX + ", " + foodY + "]";
 }
 
 function changeDirection(e) {
